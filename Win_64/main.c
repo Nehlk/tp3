@@ -20,11 +20,15 @@
     10. Salir
 *****************************************************/
 
+// fscanf lee en modo texto
+// fread lee en modo binario
 
 int main()
 {
     int option = 0;
     LinkedList* listaEmpleados = ll_newLinkedList();
+
+
     do{
         switch(option)
         {
@@ -32,6 +36,8 @@ int main()
                 controller_loadFromText("data.csv",listaEmpleados);
                 break;
         }
+
     }while(option != 10);
+
     return 0;
 }
