@@ -77,6 +77,10 @@ int main()
             case 6: controller_ListEmployee(listaEmpleados);
                 break;
 
+            case 7:
+                controller_sortEmployee(listaEmpleados);
+                break;
+
             case 10: ll_deleteLinkedList(listaEmpleados);
                 break;
         }

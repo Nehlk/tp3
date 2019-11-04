@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <ctype.h>
+#include <string.h>
 
 #include "LinkedList.h"
 #include "Employee.h"
@@ -160,7 +161,8 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     int a; //variable recorrido For().
 
 
-    Employee* auxEmpleado; // = employee_new();
+    Employee* auxEmpleado = employee_new();
+    Employee* empleado;
 
     system("cls");
     printf("\n\nIngrese el ID del Empleado a modificar: ");
@@ -170,10 +172,12 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 
     for(a = 0; a <= listLenght; a++)
     {
-        if((auxEmpleado)->id == a)
+        empleado = ll_get(pArrayListEmployee, a);
+
+        if((auxEmpleado)->id == (empleado)->id)
         {
 
-            printf("\n\n %d, %d", (auxEmpleado)->id, a );
+            printf("\n\n %d, %d", (auxEmpleado)->id, (empleado)->id );
 
             printf("\n\nDigite Nombre: ");
             scanf("%s", (auxEmpleado)->nombre);
@@ -183,6 +187,8 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 
             printf("\nDigite Horas Trabajadas: ");
             scanf("%i", &(auxEmpleado)->horasTrabajadas);
+
+            break;
 
         }
     }
@@ -205,6 +211,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
     char opcion;
 
     Employee* auxEmpleado;
+    Employee* empleado;
 
     system("cls");
     printf("\n\nIngrese el ID del Empleado a Eliminar: ");
@@ -214,7 +221,10 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 
     for(a = 0; a <= listLenght; a++)
     {
-        if((auxEmpleado)->id == a)
+
+        empleado = ll_get(pArrayListEmployee, a);
+
+        if((auxEmpleado)->id == (*empleado).id)
         {
 
             do{
@@ -225,6 +235,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
                 {
                     ll_remove(pArrayListEmployee, idEmpleado-1);
                     printf("\n\nEl Empleado %s, cuyo Id: %i. Se ha Eliminado Correctamente.", (*auxEmpleado).nombre, (*auxEmpleado).id);
+
                 }
                 else if(opcion == 'N')
                 {
@@ -232,6 +243,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
                 }
 
         }while(opcion != 'S' && opcion != 'N');
+        break;
     }
 
 
@@ -280,6 +292,32 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
 
 
+int ordenamientoInsercion(LinkedList* pArrayListEmployee)
+{
+
+     int i; //Variables For
+     int  employeeLenght = ll_len(pArrayListEmployee); //Total de la lista
+
+     Employee* auxEmployee;// = employee_new();
+     Employee* empleado; // = employee_new();
+     Employee* auxiliar;
+
+    for ( i = 1; i <= employeeLenght; i++)
+    {
+        empleado = ll_get(pArrayListEmployee, i);
+        auxEmployee = ll_get(pArrayListEmployee, i+1);
+
+        if(strcmpi( (*empleado).nombre, (*auxEmployee).nombre  ) > 0 )
+        {
+
+            auxiliar = auxEmployee;
+            auxEmployee = empleado;
+            empleado = auxiliar;
+
+        }
+    }
+    return 1;
+}
 
 
 
@@ -292,6 +330,14 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
+    system("cls");
+
+
+    ordenamientoInsercion(pArrayListEmployee);
+    printf("\nSe ha ordenado por Nombre Ascendente Correctamente.");
+
+
+
     return 1;
 }
 
