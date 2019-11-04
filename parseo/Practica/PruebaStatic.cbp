@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="TP3" />
+		<Option title="PruebaStatic" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -15,7 +15,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="./LinkedList.a" />
+					<Add library="./ArrayList.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -28,22 +28,17 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="./LinkedList.a" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="Controller.c">
+		<Unit filename="ArrayList.h" />
+		<Unit filename="cliente.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Controller.h" />
-		<Unit filename="Employee.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Employee.h" />
-		<Unit filename="LinkedList.h" />
+		<Unit filename="cliente.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -51,13 +46,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="parser.h" />
-		<Unit filename="utn.c">
-			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="utn.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -89,7 +89,7 @@ int parseData(char* fileName,Persona* arrayPersonas, int len)
             i++;
         }
             else{
-            break;
+               break;
             }
 
     }while(!feof(pFile) && i<len);
