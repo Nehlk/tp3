@@ -90,6 +90,43 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 
 
 
+
+int returnIdAvailable(LinkedList*  pArrayListEmployee)
+{
+    int a;
+    int length = ll_len(pArrayListEmployee);
+    int position = length + 1;
+
+    Employee* empleado;
+    Employee* auxEmpleado = employee_new();
+
+
+    for(a = 1; a <= length; a++)
+    {
+        empleado = ll_get(pArrayListEmployee, a+1);
+        auxEmpleado = ll_get(pArrayListEmployee, a);
+
+       if(  auxEmpleado + sizeof(Employee) != NULL )
+       {
+
+            if( !( (auxEmpleado)->id+1 == (empleado)->id ))
+            {
+                position = (auxEmpleado)->id+1;
+                break;
+            }
+
+       }
+       else if( (auxEmpleado)->id+1 == NULL){
+            position = (auxEmpleado)->id+1;
+       }
+    }
+
+    return position;
+}
+
+
+
+
 /** \brief Alta de empleados
  *
  * \param pArrayListEmployee LinkedList*
@@ -114,9 +151,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
     employee_setNombre(auxiliarEmpleado, name);
 
-    printf("\n\nDigite ID: ");
-    fflush(stdin);
-    scanf("%i", &id);
+    id = returnIdAvailable(pArrayListEmployee);
 
     employee_setId(auxiliarEmpleado, id);
 
