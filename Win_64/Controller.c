@@ -10,7 +10,7 @@
 #include "utn.h"
 
 
-
+int ordenamientoId(void* pEmployeeA, void* pEmployeeB);
 
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
@@ -102,17 +102,20 @@ int returnIdAvailable(LinkedList*  pArrayListEmployee)
     Employee* auxEmpleado = employee_new();
 
 
-    for(a = 1; a <= length; a++)
+    for(a = 1; a < length - 1 ; a++)
     {
         empleado = ll_get(pArrayListEmployee, a+1);
         auxEmpleado = ll_get(pArrayListEmployee, a);
 
 
 
-            if( !( (auxEmpleado)->id+1 == (empleado)->id ))
+            if(!( (auxEmpleado)->id+1 == (empleado)->id ))
             {
                 position = (auxEmpleado)->id+1;
                 break;
+            }
+            else{
+                position = (empleado)->id+1;
             }
 
 
@@ -142,38 +145,48 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
     system("cls");
 
-    printf("\n ********* Ingreso de datos de Nuevo Empleado *********");
-    printf("\n\nDigite Nombre: ");
-    fflush(stdin);
-    scanf("%s", name);
+    if(pArrayListEmployee != NULL)
+    {
 
-    employee_setNombre(auxiliarEmpleado, name);
 
-    id = returnIdAvailable(pArrayListEmployee);
+        printf("\n ********* Ingreso de datos de Nuevo Empleado *********");
+        printf("\n\nDigite Nombre: ");
+        fflush(stdin);
+        scanf("%s", name);
 
-    employee_setId(auxiliarEmpleado, id);
+        employee_setNombre(auxiliarEmpleado, name);
 
-    printf("\n\nDigite Sueldo: ");
-    fflush(stdin);
-    scanf("%i", &salario);
+        id = returnIdAvailable(pArrayListEmployee);
+
+        employee_setId(auxiliarEmpleado, id);
+
+        printf("\n\nDigite Sueldo: ");
+        fflush(stdin);
+        scanf("%i", &salario);
 
   //  salario = getInt("\n\nDigite Sueldo: ");
 
-    employee_setSueldo(auxiliarEmpleado, salario);
+        employee_setSueldo(auxiliarEmpleado, salario);
 
-    printf("\n\nDigite Horas Trabajadas: ");
+        printf("\n\nDigite Horas Trabajadas: ");
 
-    fflush(stdin);
-    scanf("%i", &hsTrabajadas);
+        fflush(stdin);
+        scanf("%i", &hsTrabajadas);
 
 
 
-    employee_setHorasTrabajadas(auxiliarEmpleado, hsTrabajadas);
+        employee_setHorasTrabajadas(auxiliarEmpleado, hsTrabajadas);
 
-    //ll_sort();
-    ll_add(pArrayListEmployee, auxiliarEmpleado);
 
-    printf("\n\nEmpleado agregado");
+        ll_add(pArrayListEmployee, auxiliarEmpleado);
+        ll_sort(pArrayListEmployee, ordenamientoId, 1);
+
+        printf("\n\nEmpleado agregado con el ID:%d", id);
+
+    }else{
+
+         printf("\n\nAun no hay una lista cargada.");
+    }
 
     return 1;
 }
@@ -328,7 +341,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
 
 
-int ordenamientoInsercion(void* pEmployeeA, void* pEmployeeB)
+int ordenamientoId(void* pEmployeeA, void* pEmployeeB)
 {
 
     /* int i; //Variables For
@@ -385,7 +398,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     //Employee* auxB;
     //ordenamientoInsercion(pArrayListEmployee);
 
-    ll_sort(pArrayListEmployee, ordenamientoInsercion, 1);
+    ll_sort(pArrayListEmployee, ordenamientoId, 1);
 
     printf("\nSe ha ordenado por Nombre Ascendente Correctamente.");
 

@@ -53,7 +53,7 @@
 	"LinkedList.h"
 	"Employee.h"
 
-1572899296 source:c:\users\nehl\desktop\tp3\win_64\controller.c
+1572924142 source:c:\users\nehl\desktop\tp3\win_64\controller.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -62,18 +62,19 @@
 	"LinkedList.h"
 	"Employee.h"
 	"parser.h"
+	"utn.h"
 
-1572403233 c:\users\nehl\desktop\tp3\win_64\linkedlist.h
+1572920730 c:\users\nehl\desktop\tp3\win_64\linkedlist.h
 
-1572667565 c:\users\nehl\desktop\tp3\win_64\employee.h
+1572920730 c:\users\nehl\desktop\tp3\win_64\employee.h
 
-1572817022 source:c:\users\nehl\desktop\tp3\win_64\employee.c
+1572920730 source:c:\users\nehl\desktop\tp3\win_64\employee.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Employee.h"
 
-1572816502 source:c:\users\nehl\desktop\tp3\win_64\parser.c
+1572920730 source:c:\users\nehl\desktop\tp3\win_64\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
@@ -115,7 +116,7 @@
 	"LinkedList.h"
 	"Employee.h"
 
-1572889826 source:c:\users\nehl\desktop\tp3\win_64\main.c
+1572920730 source:c:\users\nehl\desktop\tp3\win_64\main.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
@@ -123,11 +124,11 @@
 	"Employee.h"
 	"utn.h"
 
-1572403233 c:\users\nehl\desktop\tp3\win_64\controller.h
+1572920730 c:\users\nehl\desktop\tp3\win_64\controller.h
 
-1572443716 c:\users\nehl\desktop\tp3\win_64\utn.h
+1572920730 c:\users\nehl\desktop\tp3\win_64\utn.h
 
-1572627408 c:\users\nehl\desktop\tp3\win_64\parser.h
+1572920730 c:\users\nehl\desktop\tp3\win_64\parser.h
 
 1572914217 c:\users\alumno\desktop\tp3\win_64\parser.h
 
