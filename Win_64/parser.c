@@ -10,7 +10,7 @@
  * \return int
  *
  */
-int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
+int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
 {
 
     Employee* auxEmpleado;
@@ -27,14 +27,14 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
     fscanf(pFile, "%[^,], %[^,], %[^,], %[^\n]\n", id, nombre, hTrabajadas, salario);
 
 
-    do{
+    do
+    {
         fscanf(pFile, "%[^,], %[^,], %[^,], %[^\n]\n", id, nombre, hTrabajadas, salario);
 
 
+        auxEmpleado = employee_newParametros(id, nombre, hTrabajadas, salario);
 
-            auxEmpleado = employee_newParametros(id, nombre, hTrabajadas, salario);
-
-            ll_add(pArrayListEmployee, auxEmpleado);
+        ll_add(pArrayListEmployee, auxEmpleado);
 
 
 
@@ -58,7 +58,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
+int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
 {
 
     Employee* auxEmpleado ;
@@ -75,14 +75,13 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
     fscanf(pFile, "%[^,], %[^,], %[^,], %[^\n]\n", &id, nombre, &hTrabajadas, &salario);
 
 
-    do{
+    do
+    {
         fscanf(pFile, "%i, %[^,], %i, %i\n", &id, nombre, &hTrabajadas, &salario);
 
+        auxEmpleado = employee_newParametrosBinary(id, nombre, hTrabajadas, salario);
 
-
-            auxEmpleado = employee_newParametrosBinary(id, nombre, hTrabajadas, salario);
-
-            ll_add(pArrayListEmployee, auxEmpleado);
+        ll_add(pArrayListEmployee, auxEmpleado);
 
 
 
