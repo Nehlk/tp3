@@ -7,6 +7,7 @@
 #include "LinkedList.h"
 #include "Employee.h"
 #include "parser.h"
+#include "utn.h"
 
 
 
@@ -106,8 +107,7 @@ int returnIdAvailable(LinkedList*  pArrayListEmployee)
         empleado = ll_get(pArrayListEmployee, a+1);
         auxEmpleado = ll_get(pArrayListEmployee, a);
 
-       if(  auxEmpleado + sizeof(Employee) != NULL )
-       {
+
 
             if( !( (auxEmpleado)->id+1 == (empleado)->id ))
             {
@@ -115,10 +115,8 @@ int returnIdAvailable(LinkedList*  pArrayListEmployee)
                 break;
             }
 
-       }
-       else if( (auxEmpleado)->id+1 == NULL){
-            position = (auxEmpleado)->id+1;
-       }
+
+
     }
 
     return position;
@@ -159,6 +157,8 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
     fflush(stdin);
     scanf("%i", &salario);
 
+  //  salario = getInt("\n\nDigite Sueldo: ");
+
     employee_setSueldo(auxiliarEmpleado, salario);
 
     printf("\n\nDigite Horas Trabajadas: ");
@@ -170,6 +170,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
     employee_setHorasTrabajadas(auxiliarEmpleado, hsTrabajadas);
 
+    //ll_sort();
     ll_add(pArrayListEmployee, auxiliarEmpleado);
 
     printf("\n\nEmpleado agregado");
@@ -327,22 +328,25 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
 
 
-int ordenamientoInsercion(LinkedList* pArrayListEmployee)
+int ordenamientoInsercion(void* pEmployeeA, void* pEmployeeB)
 {
 
-     int i; //Variables For
+    /* int i; //Variables For
      int  employeeLenght = ll_len(pArrayListEmployee); //Total de la lista
 
      Employee* auxEmployee;// = employee_new();
      Employee* empleado; // = employee_new();
-     Employee* auxiliar;
+
+     Employee auxEmpl[3];
+
+
 
     for ( i = 1; i <= employeeLenght; i++)
     {
-        empleado = ll_get(pArrayListEmployee, i);
-        auxEmployee = ll_get(pArrayListEmployee, i+1);
+        auxEmpl[0] = ll_get(pArrayListEmployee, i);
+        auxEmpl[1]  = ll_get(pArrayListEmployee, i+1);
 
-        if(strcmpi( (*empleado).nombre, (*auxEmployee).nombre  ) > 0 )
+        if( strcmpi(auxEmpl[0].nombre, auxEmpl[1].nombre) > 0 )
         {
 
             auxiliar = auxEmployee;
@@ -350,8 +354,18 @@ int ordenamientoInsercion(LinkedList* pArrayListEmployee)
             empleado = auxiliar;
 
         }
+    } */
+
+    if(((Employee*)pEmployeeA)->id > ((Employee*)pEmployeeB)->id)
+    {
+        return 1;
     }
-    return 1;
+    if(((Employee*)pEmployeeA)->id < ((Employee*)pEmployeeB)->id)
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 
@@ -367,8 +381,12 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     system("cls");
 
+   // Employee* auxA;
+    //Employee* auxB;
+    //ordenamientoInsercion(pArrayListEmployee);
 
-    ordenamientoInsercion(pArrayListEmployee);
+    ll_sort(pArrayListEmployee, ordenamientoInsercion, 1);
+
     printf("\nSe ha ordenado por Nombre Ascendente Correctamente.");
 
 
