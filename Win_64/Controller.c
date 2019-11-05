@@ -145,12 +145,20 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
     system("cls");
 
+    printf("\nOrdenando la lista de Empleados por ID para el asignamiento de ID automatico...");
+
+    ll_sort(pArrayListEmployee, ordenamientoId, 1);
+
+    system("cls");
+
+    printf("\nOrdenamiento Completado.\n");
+
     if(pArrayListEmployee != NULL)
     {
 
 
         printf("\n ********* Ingreso de datos de Nuevo Empleado *********");
-        printf("\n\nDigite Nombre: ");
+        printf("\n\nIngrese Nombre: ");
         fflush(stdin);
         scanf("%s", name);
 
@@ -164,7 +172,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
         fflush(stdin);
         scanf("%i", &salario);
 
-  //  salario = getInt("\n\nDigite Sueldo: ");
+    //  salario = getInt("\n\nDigite Sueldo: ");
 
         employee_setSueldo(auxiliarEmpleado, salario);
 
@@ -340,34 +348,16 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
 
 
-
+/** \brief Ordenamiento de Empleados por ID
+ *
+ * \param void* pEmployeeA
+ * \param void* pEmployeeB
+ * \return 0
+ *
+ */
 int ordenamientoId(void* pEmployeeA, void* pEmployeeB)
 {
 
-    /* int i; //Variables For
-     int  employeeLenght = ll_len(pArrayListEmployee); //Total de la lista
-
-     Employee* auxEmployee;// = employee_new();
-     Employee* empleado; // = employee_new();
-
-     Employee auxEmpl[3];
-
-
-
-    for ( i = 1; i <= employeeLenght; i++)
-    {
-        auxEmpl[0] = ll_get(pArrayListEmployee, i);
-        auxEmpl[1]  = ll_get(pArrayListEmployee, i+1);
-
-        if( strcmpi(auxEmpl[0].nombre, auxEmpl[1].nombre) > 0 )
-        {
-
-            auxiliar = auxEmployee;
-            auxEmployee = empleado;
-            empleado = auxiliar;
-
-        }
-    } */
 
     if(((Employee*)pEmployeeA)->id > ((Employee*)pEmployeeB)->id)
     {
@@ -383,6 +373,31 @@ int ordenamientoId(void* pEmployeeA, void* pEmployeeB)
 
 
 
+
+/** \brief Ordenamiento de Empleados por Nombre
+ *
+ * \param void* pEmployeeA
+ * \param void* pEmployeeB
+ * \return 0
+ *
+ */
+int ordenamientoNombre(void* pEmployeeA, void* pEmployeeB)
+{
+
+
+    if(  strcmpi(( (Employee*)pEmployeeA)->nombre , ((Employee*)pEmployeeB)->nombre) > 0)
+    {
+        return 1;
+    }
+    if(strcmpi(( (Employee*)pEmployeeA)->nombre , ((Employee*)pEmployeeB)->nombre) < 0)
+    {
+        return -1;
+    }
+
+    return 0;
+}
+
+
 /** \brief Ordenar empleados
  *
  * \param path char*
@@ -394,11 +409,12 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     system("cls");
 
-   // Employee* auxA;
-    //Employee* auxB;
-    //ordenamientoInsercion(pArrayListEmployee);
+    printf("\nEste Proceso podria tardar unos momentos.. ");
 
-    ll_sort(pArrayListEmployee, ordenamientoId, 1);
+
+    ll_sort(pArrayListEmployee, ordenamientoNombre, 1);
+
+    system("cls");
 
     printf("\nSe ha ordenado por Nombre Ascendente Correctamente.");
 
@@ -406,6 +422,11 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 
     return 1;
 }
+
+
+
+
+
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
  *
@@ -416,6 +437,36 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
+    int length = ll_len(pArrayListEmployee);
+    int a;
+
+    Employee* auxEmployee;
+
+    FILE* archivo;
+
+     if ( (archivo = fopen(path,"r+")) == NULL )       // si el archivo existe lo abre
+    {
+      if ((archivo = fopen(path,"w+")) == NULL )        //si no existe lo crea
+      {
+         printf("No se pudo abrir el archivo");
+         exit(1);
+      }
+   }
+
+
+
+
+    for(a = 1; a < length; a++)
+    {
+
+        auxEmployee = ll_get(pArrayListEmployee, a);
+        fseek(archivo, 0L, SEEK_END);
+        fwrite(auxEmployee, sizeof(Employee), 1, archivo);
+
+    }
+
+    fclose(archivo);
+
     return 1;
 }
 

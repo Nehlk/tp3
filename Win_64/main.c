@@ -81,6 +81,14 @@ int main()
                 controller_sortEmployee(listaEmpleados);
                 break;
 
+            case 8:
+                controller_saveAsText("data.csv", listaEmpleados);
+                break;
+
+            case 9:
+                controller_saveAsBinary("data.csv", listaEmpleados);
+                break;
+
             case 10: ll_deleteLinkedList(listaEmpleados);
                 break;
         }
