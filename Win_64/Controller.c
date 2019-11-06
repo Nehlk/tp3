@@ -20,11 +20,11 @@ int ordenamientoId(void* pEmployeeA, void* pEmployeeB);
  * \return int
  *
  */
-int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
+int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
 {
-        FILE* archivoDatos;
+    FILE* archivoDatos;
 
-        system("cls");
+    system("cls");
 
     if ( (archivoDatos = fopen(path,"r") ) != NULL ) // Si la carga de archivos es diferente a NULL, abre..
     {
@@ -34,7 +34,9 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 
         printf("\n\n Carga OK.");
 
-    }else{
+    }
+    else
+    {
         printf("\n\nNo se pudo realizar la carga.");
     }
 
@@ -62,11 +64,11 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
+int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
 {
-        FILE* datosBinario;
+    FILE* datosBinario;
 
-        system("cls");
+    system("cls");
 
     if ( (datosBinario = fopen(path,"rb") ) != NULL ) // Si la carga de archivos es diferente a NULL, abre..
     {
@@ -76,13 +78,15 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 
         printf("\n\n Carga OK.");
 
-    }else{
+    }
+    else
+    {
         printf("\n\nNo se pudo realizar la carga.");
     }
 
 
 
-  //  fclose(archivoDatos);
+    //  fclose(archivoDatos);
 
     return 0;
 }
@@ -109,14 +113,15 @@ int returnIdAvailable(LinkedList*  pArrayListEmployee)
 
 
 
-            if(!( (auxEmpleado)->id+1 == (empleado)->id ))
-            {
-                position = (auxEmpleado)->id+1;
-                break;
-            }
-            else{
-                position = (empleado)->id+1;
-            }
+        if(!( (auxEmpleado)->id+1 == (empleado)->id ))
+        {
+            position = (auxEmpleado)->id+1;
+            break;
+        }
+        else
+        {
+            position = (empleado)->id+1;
+        }
 
 
 
@@ -172,7 +177,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
         fflush(stdin);
         scanf("%i", &salario);
 
-    //  salario = getInt("\n\nDigite Sueldo: ");
+        //  salario = getInt("\n\nDigite Sueldo: ");
 
         employee_setSueldo(auxiliarEmpleado, salario);
 
@@ -191,9 +196,11 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
         printf("\n\nEmpleado agregado con el ID:%d", id);
 
-    }else{
+    }
+    else
+    {
 
-         printf("\n\nAun no hay una lista cargada.");
+        printf("\n\nAun no hay una lista cargada.");
     }
 
     return 1;
@@ -284,7 +291,8 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
         if((auxEmpleado)->id == (*empleado).id)
         {
 
-            do{
+            do
+            {
                 printf("\n\nEsta seguro que desea Eliminar el Empleado? s/n->  ");
                 opcion = toupper(getch());
 
@@ -299,9 +307,10 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
                     break;
                 }
 
-        }while(opcion != 'S' && opcion != 'N');
-        break;
-    }
+            }
+            while(opcion != 'S' && opcion != 'N');
+            break;
+        }
 
 
     }
@@ -385,11 +394,11 @@ int ordenamientoNombre(void* pEmployeeA, void* pEmployeeB)
 {
 
 
-    if(  strcmpi(( (Employee*)pEmployeeA)->nombre , ((Employee*)pEmployeeB)->nombre) > 0)
+    if(  strcmpi(( (Employee*)pEmployeeA)->nombre, ((Employee*)pEmployeeB)->nombre) > 0)
     {
         return 1;
     }
-    if(strcmpi(( (Employee*)pEmployeeA)->nombre , ((Employee*)pEmployeeB)->nombre) < 0)
+    if(strcmpi(( (Employee*)pEmployeeA)->nombre, ((Employee*)pEmployeeB)->nombre) < 0)
     {
         return -1;
     }
@@ -435,33 +444,37 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
+int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
     int length = ll_len(pArrayListEmployee);
     int a;
+
+    char id[3] = "id";
+    char nombre[7] = "nombre";
+    char hsTrabajadas[18] = "horasTrabajadas";
+    char sueldo[7] = "sueldo";
+
 
     Employee* auxEmployee;
 
     FILE* archivo;
 
-     if ( (archivo = fopen(path,"r+")) == NULL )       // si el archivo existe lo abre
+    if ( (archivo = fopen(path,"w")) == NULL )
     {
-      if ((archivo = fopen(path,"w+")) == NULL )        //si no existe lo crea
-      {
-         printf("No se pudo abrir el archivo");
-         exit(1);
-      }
-   }
+        printf("No se pudo abrir el archivo");
+        exit(1);
+    }
 
 
 
 
+    fprintf(archivo, "%s,%s,%s,%s\n", id, nombre, hsTrabajadas, sueldo);
     for(a = 1; a < length; a++)
     {
 
         auxEmployee = ll_get(pArrayListEmployee, a);
         fseek(archivo, 0L, SEEK_END);
-        fwrite(auxEmployee, sizeof(Employee), 1, archivo);
+        fprintf(archivo, "%i,%s,%i,%i\n", auxEmployee->id, auxEmployee->nombre, auxEmployee->horasTrabajadas, auxEmployee->sueldo);
 
     }
 
@@ -477,8 +490,38 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
+int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
+    int length = ll_len(pArrayListEmployee);
+    int a;
+
+    Employee* auxEmployee;
+
+    FILE* archivo;
+
+    if ( (archivo = fopen(path,"r+")) == NULL )       // si el archivo existe lo abre
+    {
+        if ((archivo = fopen(path,"w+")) == NULL )        //si no existe lo crea
+        {
+            printf("No se pudo abrir el archivo");
+            exit(1);
+        }
+    }
+
+
+
+
+    for(a = 1; a < length; a++)
+    {
+
+        auxEmployee = ll_get(pArrayListEmployee, a);
+        fseek(archivo, 0L, SEEK_END);
+        fwrite(auxEmployee, sizeof(Employee), 1, archivo);
+
+    }
+
+    fclose(archivo);
+
     return 1;
 }
 
