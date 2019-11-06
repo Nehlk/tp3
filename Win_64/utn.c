@@ -5,11 +5,11 @@
 #include "utn.h"
 
 
- /*
-  * \brief Solicita un numero flotante al usuario y devuelve el resultado
-  * \parametro mensaje. Es el mensaje a ser mostrado
-  * \Return El numero ingresado por el usuario
-  */
+/*
+ * \brief Solicita un numero flotante al usuario y devuelve el resultado
+ * \parametro mensaje. Es el mensaje a ser mostrado
+ * \Return El numero ingresado por el usuario
+ */
 float getFloat(char mensaje[])
 {
 
@@ -23,11 +23,11 @@ float getFloat(char mensaje[])
 
 
 
- /*
-  * \brief Solicita un numero al usuario de tipo entero y devuelve el resultado
-  * \parametro mensaje. Es el mensaje a ser mostrado
-  * \Return El numero ingresado por el usuario
-  */
+/*
+ * \brief Solicita un numero al usuario de tipo entero y devuelve el resultado
+ * \parametro mensaje. Es el mensaje a ser mostrado
+ * \Return El numero ingresado por el usuario
+ */
 int getInt(char mensaje[])
 {
 
@@ -40,12 +40,13 @@ int getInt(char mensaje[])
 }
 
 
- /*
-  * \brief Solicita un caracter al usuario y devuelve el resultado
-  * \parametro mensaje. Es el mensaje a ser mostrado
-  * \Return El caracter ingresado por el usuario
-  */
-char getMyChar(char mensaje[]){
+/*
+ * \brief Solicita un caracter al usuario y devuelve el resultado
+ * \parametro mensaje. Es el mensaje a ser mostrado
+ * \Return El caracter ingresado por el usuario
+ */
+char getMyChar(char mensaje[])
+{
 
     char auxiliar;
 
@@ -59,12 +60,13 @@ char getMyChar(char mensaje[]){
 
 
 
- /*
-  * \brief Guarda la cadena de caracteres ingresada por teclado
-  * \parametro nombre: array de char , cantidad: lenght del array char
-  * \Return void
-  */
-void myFgets(char nombre[], int cantidad){
+/*
+ * \brief Guarda la cadena de caracteres ingresada por teclado
+ * \parametro nombre: array de char , cantidad: lenght del array char
+ * \Return void
+ */
+void myFgets(char nombre[], int cantidad)
+{
 
     fflush(stdin);
     fgets(nombre, cantidad-1, stdin);
