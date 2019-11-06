@@ -95,7 +95,12 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
 
 
 
-
+/** \brief devuelve un ID disponible de la lista.
+ *         debe ser ordenada de forma ascendente antes de usar.
+ *
+ * \param pArrayListEmployee LinkedList*
+ * \return posicion disponible. Int
+ */
 int returnIdAvailable(LinkedList*  pArrayListEmployee)
 {
     int a;
@@ -193,22 +198,15 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
         ll_add(pArrayListEmployee, auxiliarEmpleado);
         ll_sort(pArrayListEmployee, ordenamientoId, 1);
 
-<<<<<<< HEAD
-        printf("\n\nEmpleado agregado con el ID:%d", id);
 
-    }
-    else
-    {
-
-=======
         printf("\n\nEmpleado dado de alta con el ID:%d", id);
 
     }
     else
     {
->>>>>>> 76ee938a2d474f46c992519f5edb78b26bff1c6c
         printf("\n\nAun no hay una lista cargada.");
     }
+
 
     return 1;
 }
@@ -466,13 +464,10 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 
     FILE* archivo;
 
-<<<<<<< HEAD
-    if ( (archivo = fopen(path,"w")) == NULL )
-=======
     system("cls");
 
     if ( (archivo = fopen(path,"w+")) == NULL )       // si el archivo existe lo abre
->>>>>>> 76ee938a2d474f46c992519f5edb78b26bff1c6c
+
     {
         printf("No se pudo abrir el archivo");
         exit(1);
@@ -487,11 +482,8 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 
         auxEmployee = ll_get(pArrayListEmployee, a);
         fseek(archivo, 0L, SEEK_END);
-<<<<<<< HEAD
+
         fprintf(archivo, "%i,%s,%i,%i\n", auxEmployee->id, auxEmployee->nombre, auxEmployee->horasTrabajadas, auxEmployee->sueldo);
-=======
-        fprintf(archivo, "%i, %s, %i, %i \n", employee_getId(auxEmployee), employee_getNombre(auxEmployee), employee_getHorasTrabajadas(auxEmployee), employee_getSueldo(auxEmployee) );
->>>>>>> 76ee938a2d474f46c992519f5edb78b26bff1c6c
 
     }
 
@@ -524,7 +516,7 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 
     FILE* archivo;
 
-<<<<<<< HEAD
+
     if ( (archivo = fopen(path,"r+")) == NULL )       // si el archivo existe lo abre
     {
         if ((archivo = fopen(path,"w+")) == NULL )        //si no existe lo crea
@@ -532,34 +524,18 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
             printf("No se pudo abrir el archivo");
             exit(1);
         }
-=======
-
-    if ((archivo = fopen(path,"wb+")) == NULL )        //si no existe lo crea
-    {
-        printf("No se pudo abrir el archivo");
-        exit(1);
->>>>>>> 76ee938a2d474f46c992519f5edb78b26bff1c6c
     }
 
 
+            for(a = 1; a < length; a++)
+            {
+                auxEmployee = ll_get(pArrayListEmployee, a);
+                fseek(archivo, 0L, SEEK_END);
+                fwrite(auxEmployee, sizeof(Employee), 1, archivo);
+            }
 
+        fclose(archivo);
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 76ee938a2d474f46c992519f5edb78b26bff1c6c
-    for(a = 1; a < length; a++)
-    {
-
-        auxEmployee = ll_get(pArrayListEmployee, a);
-        fseek(archivo, 0L, SEEK_END);
-        fwrite(auxEmployee, sizeof(Employee), 1, archivo);
-
+        return 1;
     }
-
-    fclose(archivo);
-
-    return 1;
-}
 
