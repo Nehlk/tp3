@@ -141,7 +141,7 @@ if(previousValue == BTN_NADA && value != BTN_NADA)
 
 
      case BTN_UP:
-            if(posicionCursor < 5 && minuto_B < 10)
+            if(posicionCursor == 0 && minuto_B < 10)
             {
               minuto_B ++;
               lcd.setCursor(posicionCursor, 0); 
@@ -149,10 +149,34 @@ if(previousValue == BTN_NADA && value != BTN_NADA)
               delay(100);
                         
             }
+            else if(posicionCursor == 1 && minuto_A < 10)
+            {
+              minuto_A++;
+              lcd.setCursor(posicionCursor, 0); 
+              lcd.print(minuto_A);
+              delay(100);
+                        
+            }
+            else if(posicionCursor == 3 && segundo_B < 10)
+            {
+              segundo_B++;
+              lcd.setCursor(posicionCursor, 0); 
+              lcd.print(segundo_B);
+              delay(100);
+                        
+            }
+             else if(posicionCursor == 4 && segundo_A < 10)
+            {
+              segundo_A++ ;
+              lcd.setCursor(posicionCursor, 0); 
+              lcd.print(segundo_A);
+              delay(100);
+                        
+            }
             break;
 
      case BTN_DOWN:
-            if(posicionCursor < 5 && minuto_B >= 0)
+            if(posicionCursor == 0 && minuto_B >= 0)
             {
               minuto_B --;
               lcd.setCursor(posicionCursor, 0); 
@@ -160,6 +184,30 @@ if(previousValue == BTN_NADA && value != BTN_NADA)
               delay(100);
                         
             }
+            else if(posicionCursor == 1 && minuto_A>= 0)
+            {
+              minuto_A--;
+              lcd.setCursor(posicionCursor, 0); 
+              lcd.print(minuto_A);
+              delay(100);
+                        
+            }
+            else if(posicionCursor == 3 && segundo_B >= 0)
+            {
+              segundo_B--;
+              lcd.setCursor(posicionCursor, 0); 
+              lcd.print(segundo_B);
+              delay(100);
+                        
+            }
+             else if(posicionCursor == 4 && segundo_A >= 0)
+            {
+              segundo_A-- ;
+              lcd.setCursor(posicionCursor, 0); 
+              lcd.print(segundo_A);
+              delay(100);
+            }            
+            
             break;       
   }
 
