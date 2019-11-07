@@ -5,11 +5,11 @@
 #include "utn.h"
 
 
-/*
- * \brief Solicita un numero flotante al usuario y devuelve el resultado
- * \parametro mensaje. Es el mensaje a ser mostrado
- * \Return El numero ingresado por el usuario
- */
+ /**
+  * \brief Solicita un numero flotante al usuario y devuelve el resultado
+  * \parametro mensaje. Es el mensaje a ser mostrado
+  * \Return El numero ingresado por el usuario
+  */
 float getFloat(char mensaje[])
 {
 
@@ -23,11 +23,11 @@ float getFloat(char mensaje[])
 
 
 
-/*
- * \brief Solicita un numero al usuario de tipo entero y devuelve el resultado
- * \parametro mensaje. Es el mensaje a ser mostrado
- * \Return El numero ingresado por el usuario
- */
+ /**
+  * \brief Solicita un numero al usuario de tipo entero y devuelve el resultado
+  * \parametro mensaje. Es el mensaje a ser mostrado
+  * \Return El numero ingresado por el usuario
+  */
 int getInt(char mensaje[])
 {
 
@@ -40,13 +40,12 @@ int getInt(char mensaje[])
 }
 
 
-/*
- * \brief Solicita un caracter al usuario y devuelve el resultado
- * \parametro mensaje. Es el mensaje a ser mostrado
- * \Return El caracter ingresado por el usuario
- */
-char getMyChar(char mensaje[])
-{
+ /**
+  * \brief Solicita un caracter al usuario y devuelve el resultado
+  * \parametro mensaje. Es el mensaje a ser mostrado
+  * \Return El caracter ingresado por el usuario
+  */
+char getMyChar(char mensaje[]){
 
     char auxiliar;
 
@@ -60,22 +59,41 @@ char getMyChar(char mensaje[])
 
 
 
-/*
- * \brief Guarda la cadena de caracteres ingresada por teclado
- * \parametro nombre: array de char , cantidad: lenght del array char
- * \Return void
- */
-void myFgets(char nombre[], int cantidad)
+ /**
+  * \brief Guarda la cadena de caracteres ingresada por teclado
+  * \parametro nombre:  char* , mensaje: cadena a mostrar por pantalla antes de ingresar datos
+  * \Return void
+  */
+void myFgets(char* nombre, char* mensaje)
 {
 
+
+    printf(mensaje);
+
     fflush(stdin);
-    fgets(nombre, cantidad-1, stdin);
+    fgets(nombre, 51, stdin);
 
 
 }
 
 
+ /**
+  * \brief Guarda la cadena de caracteres ingresada por teclado
+  * \parametro  mensaje: cadena a mostrar por pantalla antes de ingresar datos
+  * \parametro  char* cadena: variable a la que guardar la cadena
+  * \Return void
+  */
+void getCadena(char* mensaje, char* cadena)
+{
+    char cad[51];
 
+    printf(mensaje);
+
+    scanf("%s", cad);
+
+    strcpy(cadena, cad);
+
+}
 
 
 

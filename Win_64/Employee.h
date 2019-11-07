@@ -10,7 +10,7 @@ typedef struct
 
 Employee* employee_new();
 Employee* employee_newParametros(char* idStr, char* nombreStr, char* horasTrabajadasStr, char* salaryStr);
-Employee* employee_newParametrosBinary(int id, char* nombreStr, int horasTrabajadas, int salario);
+Employee* employee_newParametrosBinary(Employee empl);
 
 void employee_delete();
 
@@ -25,5 +25,10 @@ int employee_getHorasTrabajadas(Employee* this);
 
 int employee_setSueldo(Employee* this, int sueldo);
 int employee_getSueldo(Employee* this);
+
+
+void verificarYSetearNombre(char* name, Employee* empleado);
+void verificarYSetearSalario(int valor, Employee* empleado);
+void verificarYSetearHsTrabajadas(int hsTrabajadas, Employee* empleado);
 
 #endif // employee_H_INCLUDED

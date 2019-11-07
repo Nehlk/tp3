@@ -56,7 +56,7 @@ int main()
             break;
 
         case 2:
-            controller_loadFromBinary("dataII.csv", listaEmpleados);
+            controller_loadFromBinary("dat.bin", listaEmpleados);
             break;
 
         case 3:
@@ -84,7 +84,7 @@ int main()
             break;
 
         case 9:
-            controller_saveAsBinary("dataII.csv", listaEmpleados);
+            controller_saveAsBinary("dat.bin", listaEmpleados);
             break;
 
         case 10:

@@ -8,6 +8,7 @@
 #include "Employee.h"
 #include "parser.h"
 #include "utn.h"
+#include "validaciones.h"
 
 
 int ordenamientoId(void* pEmployeeA, void* pEmployeeB);
@@ -26,13 +27,19 @@ int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
 
     system("cls");
 
-    if ( (archivoDatos = fopen(path,"r") ) != NULL ) // Si la carga de archivos es diferente a NULL, abre..
+    if(pArrayListEmployee != NULL)
     {
-        archivoDatos = fopen(path, "r");
+        ll_clear(pArrayListEmployee);
+        printf("\nSe ha limpiado la lista debido a que habia una ya cargada");
+    }
+
+    if ( (archivoDatos = fopen(path,"r+") ) != NULL ) // Si la carga de archivos es diferente a NULL, abre..
+    {
+        archivoDatos = fopen(path, "r+");
 
         parser_EmployeeFromText(archivoDatos, pArrayListEmployee);
 
-        printf("\n\n Carga OK.");
+        printf("\n\n Carga modo Texto OK.");
 
     }
     else
@@ -70,13 +77,20 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
 
     system("cls");
 
-    if ( (datosBinario = fopen(path,"rb") ) != NULL ) // Si la carga de archivos es diferente a NULL, abre..
+    if(pArrayListEmployee != NULL)
+    {
+        ll_clear(pArrayListEmployee);
+        printf("\nSe ha limpiado la lista debido a que habia una ya cargada");
+    }
+
+
+    if ( (datosBinario = fopen(path,"rb") ) != NULL )
     {
         datosBinario = fopen(path, "rb");
 
         parser_EmployeeFromBinary(datosBinario, pArrayListEmployee);
 
-        printf("\n\n Carga OK.");
+        printf("\n\n Carga modo Binario OK.");
 
     }
     else
@@ -86,7 +100,7 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
 
 
 
-    //  fclose(archivoDatos);
+    fclose(datosBinario);
 
     return 0;
 }
@@ -147,8 +161,8 @@ int returnIdAvailable(LinkedList*  pArrayListEmployee)
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
     int id;
-    int hsTrabajadas;
-    int salario;
+    int hsTrabajadas = 0;
+    int salario = 0;
     char name[31];
 
     Employee* auxiliarEmpleado = employee_new();
@@ -167,32 +181,25 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
     {
 
         printf("\n ********* Ingreso de datos de Nuevo Empleado *********");
-        printf("\n\nIngrese Nombre: ");
-        fflush(stdin);
-        scanf("%s", name);
 
-        employee_setNombre(auxiliarEmpleado, name);
+        verificarYSetearNombre(name, auxiliarEmpleado);
+
 
         id = returnIdAvailable(pArrayListEmployee);
 
         employee_setId(auxiliarEmpleado, id);
 
-        printf("\n\nDigite Sueldo: ");
-        fflush(stdin);
-        scanf("%i", &salario);
 
-        //  salario = getInt("\n\nDigite Sueldo: ");
+        /************ salario *****************/
 
-        employee_setSueldo(auxiliarEmpleado, salario);
-
-        printf("\n\nDigite Horas Trabajadas: ");
-
-        fflush(stdin);
-        scanf("%i", &hsTrabajadas);
+        verificarYSetearSalario(salario, auxiliarEmpleado);
 
 
+        /************ hsTrabajadas *****************/
 
-        employee_setHorasTrabajadas(auxiliarEmpleado, hsTrabajadas);
+        verificarYSetearHsTrabajadas(hsTrabajadas, auxiliarEmpleado);
+
+
 
 
         ll_add(pArrayListEmployee, auxiliarEmpleado);
@@ -230,7 +237,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     int a; //variable recorrido For().
 
 
-    Employee* auxEmpleado = employee_new();
+    Employee* auxEmpleado;
     Employee* empleado;
 
     system("cls");
@@ -248,14 +255,11 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 
             printf("\n\n %d, %d", (auxEmpleado)->id, (empleado)->id );
 
-            printf("\n\nDigite Nombre: ");
-            scanf("%s", (auxEmpleado)->nombre);
+            verificarYSetearNombre(auxEmpleado->nombre, auxEmpleado);
 
-            printf("\nDigite Sueldo: ");
-            scanf("%i", &(auxEmpleado)->sueldo);
+            verificarYSetearSalario(auxEmpleado->sueldo, auxEmpleado);
 
-            printf("\nDigite Horas Trabajadas: ");
-            scanf("%i", &(auxEmpleado)->horasTrabajadas);
+            verificarYSetearHsTrabajadas(auxEmpleado->horasTrabajadas, auxEmpleado);
 
             break;
 
@@ -287,6 +291,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
     scanf("%i", &idEmpleado);
 
     auxEmpleado = ll_get(pArrayListEmployee, idEmpleado - 1);
+
 
     for(a = 0; a <= listLenght; a++)
     {
@@ -454,11 +459,6 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
     int length = ll_len(pArrayListEmployee);
     int a;
 
-    char id[3] = "id";
-    char nombre[7] = "nombre";
-    char hsTrabajadas[18] = "horasTrabajadas";
-    char sueldo[7] = "sueldo";
-
 
     Employee* auxEmployee;
 
@@ -472,12 +472,16 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
         printf("No se pudo abrir el archivo");
         exit(1);
     }
+    else
+    {
+        archivo = fopen(path, "r+");
+    }
 
 
 
 
-    fprintf(archivo, "%s,%s,%s,%s\n", id, nombre, hsTrabajadas, sueldo);
-    for(a = 1; a < length; a++)
+    fprintf(archivo, "%s,%s,%s,%s\n", "id", "nombre", "horasTrabajadas" , "sueldo");
+    for(a = 0; a < length; a++)
     {
 
         auxEmployee = ll_get(pArrayListEmployee, a);
@@ -487,8 +491,8 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 
     }
 
-
-    printf("\nArchivo Guardado Como .txt correctamente.");
+    ll_clear(pArrayListEmployee);
+    printf("\nArchivo Guardado en modo texto correctamente.");
     fclose(archivo);
 
     return 1;
@@ -510,32 +514,43 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
     int length = ll_len(pArrayListEmployee);
-    int a;
+    int a; //Variable recorrido For
 
-    Employee* auxEmployee;
+    Employee* auxEmployee = NULL;
 
     FILE* archivo;
 
+    system("cls");
 
-    if ( (archivo = fopen(path,"r+")) == NULL )       // si el archivo existe lo abre
+    if ( (archivo = fopen(path,"rb+")) == NULL )
     {
-        if ((archivo = fopen(path,"w+")) == NULL )        //si no existe lo crea
+        if ((archivo = fopen(path,"wb+")) == NULL )
         {
             printf("No se pudo abrir el archivo");
             exit(1);
         }
     }
-
-
-            for(a = 1; a < length; a++)
-            {
-                auxEmployee = ll_get(pArrayListEmployee, a);
-                fseek(archivo, 0L, SEEK_END);
-                fwrite(auxEmployee, sizeof(Employee), 1, archivo);
-            }
-
-        fclose(archivo);
-
-        return 1;
+    else
+    {
+        archivo = fopen(path, "wb+");
     }
+
+  // fprintf(archivo, "%s,%s,%s,%s\n", "id", "nombre", "horasTrabajadas" , "sueldo");
+
+    for(a = 0; a <= length; a++)
+    {
+        auxEmployee = ll_get(pArrayListEmployee, a);
+        if(auxEmployee != NULL)
+        {
+            fwrite(auxEmployee, sizeof(Employee), 1, archivo);
+        }
+    }
+
+    ll_clear(pArrayListEmployee);
+    printf("\nArchivo guardado en modo Binario correctamente.");
+
+    fclose(archivo);
+
+    return 1;
+}
 

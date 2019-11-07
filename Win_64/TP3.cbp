@@ -53,11 +53,12 @@
 		<Unit filename="parser.h" />
 		<Unit filename="utn.c">
 			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="utn.h">
-			<Option target="&lt;{~None~}&gt;" />
+		<Unit filename="utn.h" />
+		<Unit filename="validaciones.c">
+			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="validaciones.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

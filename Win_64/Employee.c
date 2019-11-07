@@ -3,6 +3,8 @@
 #include <string.h>
 
 #include "Employee.h"
+#include "validaciones.h"
+#include "utn.h"
 
 
 /**\brief Asigna a la variable this una direccion de memoria.
@@ -201,26 +203,89 @@ Employee* employee_newParametros(char* idStr, char* nombreStr, char* horasTrabaj
 
 /**\brief Retorna un Employee* con todos los campos asignados en su argumento de la funcion (Modo BInario).
  *
- * \param int id: numero int
- * \param char* nombrestr cadena de caracteres
- * \param int horasTrabajadas: numero int
- * \param int salario: numero int
- * \return auxEmpleado.
+ * \param Employee empl
+ * \return auxiliarEmpl.
  *
  */
-Employee* employee_newParametrosBinary(int id, char* nombreStr, int horasTrabajadas, int salario)
+Employee* employee_newParametrosBinary(Employee empl)
 {
+    Employee* auxiliarEmpl = employee_new();
 
-     Employee* auxEmpleado;
-
-     auxEmpleado = employee_new();
-
-     employee_setId(auxEmpleado, id);
-     employee_setNombre(auxEmpleado, nombreStr);
-     employee_setSueldo(auxEmpleado, salario);
-     employee_setHorasTrabajadas(auxEmpleado, horasTrabajadas);
+    employee_setId(auxiliarEmpl, empl.id);
+    employee_setNombre(auxiliarEmpl, empl.nombre);
+    employee_setHorasTrabajadas(auxiliarEmpl, empl.horasTrabajadas);
+    employee_setSueldo(auxiliarEmpl, empl.sueldo);
 
 
-     return auxEmpleado;
+    return auxiliarEmpl;
+}
 
+
+
+
+/**\brief toma un nombre por teclado, verifica y lo setea en la estructura EMpleado.
+ *
+ * \param Employee empleado
+ * \param char* name
+ * \return void.
+ *
+ */
+void verificarYSetearNombre(char* name, Employee* empleado)
+{
+        getCadena("\n\nIngrese Nombre: ", name);
+
+        if(stringIsValid(name) == 1)
+        {
+           do{
+                getCadena("\n\nError.Reingrese Nombre valido a/z: ", name);
+           }while(stringIsValid(name) == 1);
+        }
+        else{
+            employee_setNombre(empleado, name);
+        }
+}
+
+
+/**\brief toma un numero por teclado haciendo referencia a un salario, verifica y lo setea en la estructura EMpleado.
+ *
+ * \param Employee* empleado
+ * \param int salario
+ * \return void.
+ *
+ */
+void verificarYSetearSalario(int salario, Employee* empleado)
+{
+    salario = getInt("\n\nIngrese Sueldo: ");
+        if(intIsValid(salario) == 1)
+        {
+            do{
+               salario = getInt("\n\nError. Reingrese Sueldo valido: ");
+            }while(intIsValid(salario) == 1);
+        }
+        else{
+            employee_setSueldo(empleado, salario);
+        }
+}
+
+
+/**\brief toma un numero por teclado haciendo referencia a hsTrabajadas, verifica y lo setea en la estructura EMpleado.
+ *
+ * \param Employee* empleado
+ * \param int hsTrabajadas
+ * \return void
+ *
+ */
+void verificarYSetearHsTrabajadas(int hsTrabajadas, Employee* empleado)
+{
+    hsTrabajadas = getInt("\n\nIngrese Horas Trabajadas:");
+
+        if(intIsValid(hsTrabajadas) == 1)
+        {
+            do{
+               hsTrabajadas = getInt("\n\nError. Reingrese horas validas: ");
+            }while(intIsValid(hsTrabajadas) == 1);
+        }
+        else{
+            employee_setHorasTrabajadas(empleado, hsTrabajadas);
+        }
 }
